@@ -63,13 +63,15 @@ Strategy.prototype.authenticate = function(req, options) {
         this.success(user, info);
       };
 
+      const profile = {id: evaAccountId};
+
       const arity = this._verify.length;
       if (arity === 6) {
-        this._verify(req, null, null, params, {id: evaAccountId}, verified);
+        this.fail('Params are not allowed', 500);
+        // this._verify(req, null, null, params, profile, verified);
       }
       else {
-        // this._verify(req, evaAccountId, null, {id: evaAccountId}, verified);
-        this._verify(req, null, null, {id: evaAccountId}, verified);
+        this._verify(req, null, null, profile, verified);
       }
     });
   }
@@ -191,4 +193,4 @@ Strategy.prototype.userProfile = function(token, tokenSecret, params, done) {
 };
 
 // Expose constructor.
-module.exports = {Strategy};
+module.exports = Strategy;
