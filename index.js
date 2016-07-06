@@ -11,6 +11,8 @@ function Strategy(options = {}, verify) {
   if (!options.requestTokenURL) { throw new TypeError('VistaPrintStrategy requires a requestTokenURL option'); }
   if (!options.userAuthorizationURL) { throw new TypeError('VistaPrintStrategy requires a userAuthorizationURL option'); }
   if (!options.authorizationTokenURL) { throw new TypeError('VistaPrintStrategy requires a authorizationTokenURL option'); }
+  if (!options.authFailureUri) { throw new TypeError('VistaPrintStrategy requires a authFailureUri option'); }
+  if (!options.authSuccessUri) { throw new TypeError('VistaPrintStrategy requires a authSuccessUri option'); }
 
   Object.assign(Strategy.prototype, options);
 
@@ -93,13 +95,15 @@ Strategy.prototype.authenticate = function(req, options) {
           .update(`${secret}${apikey}${requestToken}${ts}`)
           .digest('base64');
 
+      const redirectFailureUri = req.query.redirectTo;
+
       const queryString = {
         api_key: apikey,
         request_token: requestToken,
         ts,
         auth: redirectAuth,
-        response_uri: 'http://sparkler.vpip.io/auth/vp-login/callback',
-        failure_uri: 'http://sparkler.vpip.io/auth/vp-login/callback',
+        response_uri: this.authSuccessUri,
+        failure_uri: redirectFailureUri || this.authFailureUri,
       };
 
       this.redirect(`${this.authorizationTokenURL}?${qs.stringify(queryString)}`);
