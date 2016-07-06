@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "passport-strategy": "^1.0.0",
     "qs": "^6.2.0",
     "request": "^2.72.0"
   }
