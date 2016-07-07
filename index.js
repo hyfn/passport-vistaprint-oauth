@@ -1,4 +1,5 @@
 const util = require('util');
+const url = require('url');
 
 const passport = require('passport-strategy');
 
@@ -30,7 +31,7 @@ Strategy.prototype.authenticate = function(req, options) {
   const secret = this.consumerSecret;
   const ts = Math.floor(Date.now() / 1000);
 
-  if (req.query && req.query.cookieDomain) {
+  if (process.env.NODE_ENV !== 'production' && req.query && req.query.cookieDomain) {
     const cookieAuthDomain = req.query.cookieDomain;
     const successParts = url.parse(this.authSuccessUri);
     const failureParts = url.parse(this.authFailureUri);
