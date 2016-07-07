@@ -31,15 +31,6 @@ Strategy.prototype.authenticate = function(req, options) {
   const secret = this.consumerSecret;
   const ts = Math.floor(Date.now() / 1000);
 
-  if (process.env.NODE_ENV !== 'production' && req.query && req.query.cookieDomain) {
-    const cookieAuthDomain = req.query.cookieDomain;
-    const successParts = url.parse(this.authSuccessUri);
-    const failureParts = url.parse(this.authFailureUri);
-
-    this.authSuccessUri = `${cookieAuthDomain}${successParts.path}`;
-    this.authFailureUri = `${cookieAuthDomain}${failureParts.path}`;
-  }
-
   if (req.query && req.query.request_token) {
     if (req.query.response !== 'granted') {
       return this.fail(req.query.response, 403);
