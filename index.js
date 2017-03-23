@@ -62,7 +62,11 @@ Strategy.prototype.authenticate = function(req, options) {
       };
 
       // get the profile info
-      const evaAccountId = JSON.parse(body);
+      try {
+        const evaAccountId = JSON.parse(body);
+      } catch(e) {
+        return this.fail('There was an error processing response from EVA.');
+      }
 
       const timestamp = new Date().toISOString();
       const apiVersion = 1;
