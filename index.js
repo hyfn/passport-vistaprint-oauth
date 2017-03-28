@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 const util = require('util');
 const url = require('url');
 
@@ -62,7 +64,7 @@ Strategy.prototype.authenticate = function(req, options) {
       };
 
       // get the profile info
-      var evaAccountId;
+      let evaAccountId;
       try {
         evaAccountId = JSON.parse(body);
       } catch(e) {

@@ -1,0 +1,40 @@
+{
+  "plugins": [],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "generators": true
+    }
+  },
+  "rules": {
+    "object-shorthand": [
+      "error",
+      "always"
+    ],
+    "prefer-arrow-callback": "error",
+    "strict": [
+      2,
+      "global"
+    ],
+    "prefer-const": "warn",
+    "no-undef-init": "error",
+    "no-undef": [
+      "error",
+      {
+        "typeof": true
+      }
+    ],
+    "prefer-template": "warn",
+    "no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": true
+      }
+    ]
+  }
+}
