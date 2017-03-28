@@ -62,8 +62,9 @@ Strategy.prototype.authenticate = function(req, options) {
       };
 
       // get the profile info
+      var evaAccountId;
       try {
-        const evaAccountId = JSON.parse(body);
+        evaAccountId = JSON.parse(body);
       } catch(e) {
         return this.fail('There was an error processing response from EVA.');
       }
